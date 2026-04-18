@@ -1,0 +1,83 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"ignoreUnknown": false
+	},
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"attributePosition": "auto",
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 120,
+		"lineEnding": "lf"
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"style": {
+				"useImportType": {
+					"level": "on",
+					"options": {
+						"style": "inlineType"
+					}
+				}
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"arrowParentheses": "always",
+			"bracketSameLine": false,
+			"bracketSpacing": true,
+			"quoteStyle": "single",
+			"jsxQuoteStyle": "single",
+			"quoteProperties": "asNeeded",
+			"semicolons": "asNeeded",
+			"trailingCommas": "all"
+		}
+	},
+	"json": {
+		"formatter": {
+			"trailingCommas": "none"
+		}
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"options": {
+						"groups": [
+							{
+								"type": true
+							},
+							[":BUN:", ":NODE:"],
+							":BLANK_LINE:",
+							["vite", "vite-plugin-*", "vite/**"],
+							":BLANK_LINE:",
+							["vitest", "vitest/**", "@testing-library", "@testing-library/**", "jest", "@jest/**"],
+							":BLANK_LINE:",
+							["react", "react-dom", "react-*", "@types/react", "@types/react-dom"],
+							":BLANK_LINE:",
+							[":PACKAGE_WITH_PROTOCOL:", ":PACKAGE:", "!@repo/**"],
+							":BLANK_LINE:",
+							["@repo/**"],
+							":BLANK_LINE:",
+							["**", "!**/*.css", "!**/*.scss", "!**/*.less", ":ALIAS:", ":PATH:"],
+							":BLANK_LINE:",
+							["**/*.css", "**/*.scss", "**/*.less"]
+						]
+					},
+					"level": "on"
+				}
+			}
+		}
+	}
+}
