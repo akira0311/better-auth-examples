@@ -7,6 +7,7 @@ Turborepo + Bun monorepo for better-auth examples.
 - **Runtime**: [Bun](https://bun.sh)
 - **Monorepo**: [Turborepo](https://turbo.build)
 - **Linter/Formatter**: [Biome](https://biomejs.dev)
+- **Type Check**: [TypeScript Native Preview (tsgo)](https://www.npmjs.com/package/@typescript/native-preview)
 - **Git Hooks**: [Lefthook](https://lefthook.dev)
 
 ## Quick Start
@@ -66,7 +67,7 @@ Biome organizes imports in this order:
 
 ### Git Hooks
 
-Pre-commit hooks automatically run Biome on staged files.
+Pre-commit hooks automatically run Biome and type check on staged files.
 
 ```sh
 # Manually run pre-commit hooks
