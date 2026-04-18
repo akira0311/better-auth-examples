@@ -4,7 +4,7 @@
 		"module": "preserve",
 		"moduleDetection": "force",
 		"jsx": "react-jsx",
-		"jsxImportSource": "hono/jsx",
+		"jsxImportSource": "react",
 		"types": ["bun"],
 		"moduleResolution": "bundler",
 		"noEmit": true,

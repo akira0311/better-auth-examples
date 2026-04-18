@@ -3,17 +3,25 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"start": "bun run src/index.tsx",
+		"build:client": "vite build --mode client",
+		"start": "bun build:client && bun run app/server/index.tsx",
 		"lint": "biome check --write",
 		"check-types": "tsgo --noEmit"
 	},
 	"dependencies": {
-		"hono": "4.12.14"
+		"@hono/react-renderer": "1.0.1",
+		"@vitejs/plugin-react": "6.0.1",
+		"dotenv": "17.4.2",
+		"hono": "4.12.14",
+		"react": "19.2.5",
+		"react-dom": "19.2.5"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.12",
 		"@hono/vite-dev-server": "0.25.1",
 		"@types/bun": "1.3.12",
+		"@types/react": "19.2.14",
+		"@types/react-dom": "19.2.3",
 		"@typescript/native-preview": "7.0.0-dev.20260417.1",
 		"typescript": "6.0.3",
 		"vite": "8.0.8"

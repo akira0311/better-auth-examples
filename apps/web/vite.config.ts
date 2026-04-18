@@ -2,12 +2,36 @@ import { defineConfig } from 'vite'
 
 import devServer from '@hono/vite-dev-server'
 import bunAdapter from '@hono/vite-dev-server/bun'
+import react from '@vitejs/plugin-react'
 
-export default defineConfig({
-	plugins: [
-		devServer({
-			entry: 'src/index.tsx', // The file path of your application.
-			adapter: bunAdapter(),
-		}),
-	],
+export default defineConfig(({ mode }) => {
+	if (mode === 'client') {
+		return {
+			plugins: [react()],
+			build: {
+				rollupOptions: {
+					input: ['./app/client/index.tsx'],
+					output: {
+						entryFileNames: 'static/client.js',
+						chunkFileNames: 'static/assets/[name]-[hash].js',
+						assetFileNames: 'static/assets/[name].[ext]',
+					},
+				},
+				emptyOutDir: false,
+				copyPublicDir: false,
+			},
+		}
+	} else {
+		return {
+			ssr: {
+				external: ['react', 'react-dom'],
+			},
+			plugins: [
+				devServer({
+					entry: './app/server/index.tsx',
+					adapter: bunAdapter(),
+				}),
+			],
+		}
+	}
 })
