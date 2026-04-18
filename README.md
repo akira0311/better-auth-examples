@@ -43,10 +43,37 @@ bun run check-types
 ```
 .
 ├── apps/
-│   └── web/          # Web application
-├── biome.json        # Biome configuration
-├── lefthook.yml      # Git hooks configuration
-└── turbo.json       # Turborepo configuration
+│   ├── web/         # Web application (Next.js)
+│   └── electron/    # Electron application
+├── biome.json       # Biome configuration
+├── lefthook.yml     # Git hooks configuration
+└── turbo.json      # Turborepo configuration
+```
+
+### Apps
+
+#### Web (`apps/web/`)
+Vite + Hono web application (BFF).
+
+#### Electron (`apps/electron/`)
+Desktop application named "holo" built with:
+- [electron-vite](https://electron-vite.org) - Build tooling
+- [electron-builder](https://www.electron.build) - Packaging
+- React 19 + TypeScript
+- IPC communication support
+
+```sh
+# Run electron app
+bun run dev --filter=holo
+
+# Build for Windows
+bun run build:win --filter=holo
+
+# Build for macOS
+bun run build:mac --filter=holo
+
+# Build for Linux
+bun run build:linux --filter=holo
 ```
 
 ## Code Quality
