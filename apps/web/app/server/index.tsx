@@ -26,26 +26,30 @@ if (!import.meta.env.DEV) {
 
 app.get(
 	'*',
-	reactRenderer(({ children }) => {
-		return children
+	reactRenderer(() => {
+		return (
+			<html lang='en'>
+				<head>
+					<meta charSet='utf-8' />
+					<title>SPA</title>
+					{import.meta.env.DEV ? (
+						<script type='module' src='/app/client/index.tsx'></script>
+					) : (
+						<script type='module' src='/static/client.js'></script>
+					)}
+				</head>
+				<body></body>
+			</html>
+		)
 	}),
 )
 
 app.get('/', (c) => {
-	return c.render(
-		<html lang='en'>
-			<head>
-				<meta charSet='utf-8' />
-				<title>SPA</title>
-				{import.meta.env.DEV ? (
-					<script type='module' src='/app/client/index.tsx'></script>
-				) : (
-					<script type='module' src='/static/client.js'></script>
-				)}
-			</head>
-			<body></body>
-		</html>,
-	)
+	return c.render(<title>Home</title>)
+})
+
+app.get('/about', (c) => {
+	return c.render(<title>About</title>)
 })
 
 app.get('/conninfo', (c) => {

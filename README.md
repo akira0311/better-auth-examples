@@ -43,7 +43,7 @@ bun run check-types
 ```
 .
 ├── apps/
-│   ├── web/         # Web application (Next.js)
+│   ├── web/         # Web application
 │   └── electron/    # Electron application
 ├── biome.json       # Biome configuration
 ├── lefthook.yml     # Git hooks configuration

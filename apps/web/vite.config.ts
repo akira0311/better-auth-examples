@@ -2,12 +2,20 @@ import { defineConfig } from 'vite'
 
 import devServer from '@hono/vite-dev-server'
 import bunAdapter from '@hono/vite-dev-server/bun'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ mode }) => {
 	if (mode === 'client') {
 		return {
-			plugins: [react()],
+			plugins: [
+				tanstackRouter({
+					target: 'react',
+					routesDirectory: './app/client/routes',
+					generatedRouteTree: './app/client/routeTree.gen.ts',
+				}),
+				react(),
+			],
 			build: {
 				rollupOptions: {
 					input: ['./app/client/index.tsx'],
