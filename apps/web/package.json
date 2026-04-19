@@ -9,6 +9,7 @@
 		"check-types": "tsgo --noEmit"
 	},
 	"dependencies": {
+		"@better-auth/electron": "1.6.5",
 		"@hono/react-renderer": "1.0.1",
 		"@tanstack/react-router": "1.168.22",
 		"@tanstack/react-router-devtools": "1.166.13",

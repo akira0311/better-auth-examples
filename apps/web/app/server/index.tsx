@@ -69,6 +69,10 @@ app.get('/signup', (c) => {
 	return c.render(<title>Sign Up</title>)
 })
 
+app.get('/login/success', (c) => {
+	return c.render(<title>Login Success</title>)
+})
+
 app.get('/conninfo', (c) => {
 	const info = getConnInfo(c)
 	return c.text(`Your remote address is ${info.remote.address}`)

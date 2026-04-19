@@ -8,6 +8,7 @@ import { Input } from '@client/components/ui/input'
 import { Label } from '@client/components/ui/label'
 import { Separator } from '@client/components/ui/separator'
 import { signIn } from '@client/lib/auth-client'
+import { useRouterState } from '@tanstack/react-router'
 import { ArrowRight, Eye, EyeOff, Lock, Mail } from 'lucide-react'
 
 const GoogleIcon = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
@@ -41,6 +42,10 @@ export default function Login() {
 
 	const toggleVisibility = () => setIsVisible((prevState) => !prevState)
 
+	const query = useRouterState({
+		select: (state) => state.location.search,
+	})
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		setLoading(true)
@@ -50,6 +55,8 @@ export default function Login() {
 			await signIn.email({
 				email,
 				password,
+				callbackURL: '/login/success',
+				fetchOptions: { query },
 			})
 		} catch {
 			setError('Invalid email or password')
@@ -60,15 +67,12 @@ export default function Login() {
 
 	const handleGoogleSignIn = async () => {
 		setLoading(true)
-		try {
-			await signIn.social({
-				provider: 'google',
-			})
-		} catch {
-			setError('Failed to sign in with Google')
-		} finally {
-			setLoading(false)
-		}
+		await signIn.social({
+			provider: 'google',
+			callbackURL: '/login/success',
+			fetchOptions: { query },
+		})
+		setLoading(false)
 	}
 
 	return (

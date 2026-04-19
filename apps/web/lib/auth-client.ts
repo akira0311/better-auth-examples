@@ -1,3 +1,4 @@
+import { electronProxyClient } from '@better-auth/electron/proxy'
 import { createAuthClient } from 'better-auth/react'
 
 function getBaseUrl() {
@@ -6,6 +7,13 @@ function getBaseUrl() {
 
 export const authClient = createAuthClient({
 	baseURL: getBaseUrl(),
+	plugins: [
+		electronProxyClient({
+			protocol: {
+				scheme: 'com.holo.app',
+			},
+		}),
+	],
 })
 
-export const { signIn, signUp, useSession, signOut } = authClient
+export const { signIn, signUp, useSession, signOut, ensureElectronRedirect } = authClient

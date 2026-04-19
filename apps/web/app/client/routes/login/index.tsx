@@ -1,8 +1,8 @@
 import Login from '@client/components/login'
 import { useSession } from '@client/lib/auth-client'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute('/login/')({
 	component: LoginPage,
 })
 
@@ -16,5 +16,10 @@ function LoginPage() {
 		)
 	}
 
-	return <Login />
+	return (
+		<>
+			<Login />
+			<Outlet />
+		</>
+	)
 }
