@@ -1,5 +1,4 @@
 import Login from '@client/components/login'
-import { useSession } from '@client/lib/auth-client'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/login/')({
@@ -7,15 +6,6 @@ export const Route = createFileRoute('/login/')({
 })
 
 function LoginPage() {
-	const { data: session } = useSession()
-	if (session) {
-		return (
-			<div className='flex items-center justify-center min-h-dvh'>
-				<p>You are already signed in.</p>
-			</div>
-		)
-	}
-
 	return (
 		<>
 			<Login />
