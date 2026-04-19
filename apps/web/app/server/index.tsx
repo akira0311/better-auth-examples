@@ -4,6 +4,8 @@ import { reactRenderer } from '@hono/react-renderer'
 import * as dotenv from 'dotenv'
 import { Hono } from 'hono'
 
+import { auth } from '@/lib/auth'
+
 dotenv.config()
 
 const getConnInfo = import.meta.env.DEV
@@ -61,5 +63,7 @@ app.get('/conninfo', (c) => {
 	const info = getConnInfo(c)
 	return c.text(`Your remote address is ${info.remote.address}`)
 })
+
+app.on(['POST', 'GET'], '/api/auth/*', (c) => auth.handler(c.req.raw))
 
 export default app

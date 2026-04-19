@@ -16,6 +16,8 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"paths": {
+			"@/*": ["./*"],
+			"@server/*": ["./app/server/*"],
 			"@client/*": ["./app/client/*"]
 		}
 	}
