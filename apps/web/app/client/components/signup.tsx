@@ -3,11 +3,11 @@
 import { type JSX, type SVGProps, useState } from 'react'
 
 import { Button } from '@client/components/ui/button'
-import { Card, CardContent } from '@client/components/ui/card'
 import { Checkbox } from '@client/components/ui/checkbox'
 import { Input } from '@client/components/ui/input'
 import { Label } from '@client/components/ui/label'
 import { authClient } from '@client/lib/auth-client'
+import { ArrowRight, Eye, EyeOff, Lock, Mail, User } from 'lucide-react'
 
 const Logo = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
 	<svg aria-label='Logo' fill='currentColor' height='48' role='img' viewBox='0 0 40 48' width='40' {...props}>
@@ -26,11 +26,14 @@ const Logo = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
 )
 
 export default function Signup() {
+	const [isVisible, setIsVisible] = useState<boolean>(false)
 	const [name, setName] = useState<string>('')
 	const [email, setEmail] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [loading, setLoading] = useState<boolean>(false)
 	const [error, setError] = useState<string>('')
+
+	const toggleVisibility = () => setIsVisible((prevState) => !prevState)
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -58,84 +61,105 @@ export default function Signup() {
 
 	return (
 		<div className='flex items-center justify-center min-h-dvh'>
-			<div className='flex flex-1 flex-col justify-center px-4 py-10 lg:px-6'>
-				<div className='sm:mx-auto sm:w-full sm:max-w-md'>
-					<Logo aria-hidden className='mx-auto h-10 w-10' />
-					<h3 className='text-balance mt-2 text-center text-lg font-bold'>Create new account for workspace</h3>
+			<div className='mx-auto w-full max-w-xs space-y-6'>
+				<div className='space-y-2 text-center'>
+					<Logo aria-hidden className='mx-auto h-16 w-16' />
+					<h1 className='text-balance text-3xl font-semibold'>Create an account</h1>
+					<p className='text-pretty text-muted-foreground'>Sign up to access your dashboard, settings and projects.</p>
 				</div>
 
-				<Card className='mt-4 shadow-2xs sm:mx-auto sm:w-full sm:max-w-md'>
-					<CardContent>
-						<form onSubmit={handleSubmit} className='space-y-4'>
-							<div>
-								<Label htmlFor='name' className='text-sm font-medium'>
-									Name
-								</Label>
+				<div className='space-y-5'>
+					<form onSubmit={handleSubmit} className='space-y-6'>
+						<div>
+							<Label htmlFor='name'>Name</Label>
+							<div className='relative mt-2.5'>
 								<Input
-									type='text'
 									id='name'
+									className='peer ps-9'
+									placeholder='John Doe'
+									type='text'
 									autoComplete='name'
-									placeholder='Name'
-									className='mt-2'
 									value={name}
 									onChange={(e) => setName(e.target.value)}
 								/>
+								<div className='text-muted-foreground/80 pointer-events-none absolute inset-y-0 inset-s-0 flex items-center justify-center ps-3 peer-disabled:opacity-50'>
+									<User aria-hidden size={16} />
+								</div>
 							</div>
+						</div>
 
-							<div>
-								<Label htmlFor='email' className='text-sm font-medium'>
-									Email
-								</Label>
+						<div>
+							<Label htmlFor='email'>Email</Label>
+							<div className='relative mt-2.5'>
 								<Input
-									type='email'
 									id='email'
-									autoComplete='email'
+									className='peer ps-9'
 									placeholder='ephraim@blocks.so'
-									className='mt-2'
+									type='email'
+									autoComplete='email'
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 								/>
+								<div className='text-muted-foreground/80 pointer-events-none absolute inset-y-0 inset-s-0 flex items-center justify-center ps-3 peer-disabled:opacity-50'>
+									<Mail aria-hidden size={16} />
+								</div>
 							</div>
+						</div>
 
-							<div>
-								<Label htmlFor='password' className='text-sm font-medium'>
-									Password
-								</Label>
+						<div>
+							<div className='flex items-center justify-between'>
+								<Label htmlFor='password'>Password</Label>
+							</div>
+							<div className='relative mt-2.5'>
 								<Input
-									type='password'
 									id='password'
+									className='ps-9 pe-9'
+									placeholder='Create a password'
+									type={isVisible ? 'text' : 'password'}
 									autoComplete='new-password'
-									placeholder='Password'
-									className='mt-2'
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
 								/>
-							</div>
-
-							<div className='flex items-start'>
-								<div className='flex h-6 items-center'>
-									<Checkbox id='terms' className='size-4' required />
+								<div className='text-muted-foreground/80 pointer-events-none absolute inset-y-0 inset-s-0 flex items-center justify-center ps-3 peer-disabled:opacity-50'>
+									<Lock aria-hidden size={16} />
 								</div>
-								<Label htmlFor='terms' className='ml-3 text-sm leading-6 text-muted-foreground'>
-									Agree to <span className='text-primary'>Terms</span> and <span className='text-primary'>Privacy</span>
-								</Label>
+								<button
+									className='text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 inset-e-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50'
+									type='button'
+									onClick={toggleVisibility}
+									aria-label={isVisible ? 'Hide password' : 'Show password'}
+									aria-pressed={isVisible}
+									aria-controls='password'
+								>
+									{isVisible ? <EyeOff aria-hidden size={16} /> : <Eye aria-hidden size={16} />}
+								</button>
 							</div>
+						</div>
 
-							{error && <p className='text-sm text-red-500'>{error}</p>}
+						<div className='flex items-start'>
+							<div className='flex h-6 items-center'>
+								<Checkbox id='terms' required />
+							</div>
+							<Label htmlFor='terms' className='ml-3 text-sm leading-6 text-muted-foreground'>
+								Agree to <span className='text-primary'>Terms</span> and <span className='text-primary'>Privacy</span>
+							</Label>
+						</div>
 
-							<Button type='submit' className='mt-4 w-full py-2 font-medium' disabled={loading}>
-								Create account
-							</Button>
-						</form>
-					</CardContent>
-				</Card>
+						{error && <p className='text-sm text-red-500'>{error}</p>}
 
-				<p className='text-pretty mt-6 text-center text-sm text-muted-foreground'>
-					Already have an account?{' '}
-					<a href='/login' className='font-medium text-primary hover:underline'>
-						Sign in
-					</a>
-				</p>
+						<Button type='submit' className='w-full' disabled={loading}>
+							Create account
+							<ArrowRight aria-hidden className='h-4 w-4' />
+						</Button>
+					</form>
+
+					<div className='text-center text-sm'>
+						Already have an account?{' '}
+						<a href='/login' className='text-primary font-medium hover:underline'>
+							Sign in
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	)
