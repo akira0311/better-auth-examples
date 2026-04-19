@@ -1,18 +1,20 @@
+import '@/lib/env'
+
 import { type ViteDevServer } from 'vite'
 
 import { reactRenderer } from '@hono/react-renderer'
-import * as dotenv from 'dotenv'
 import { Hono } from 'hono'
+import { logger } from 'hono/logger'
 
 import { auth } from '@/lib/auth'
-
-dotenv.config()
 
 const getConnInfo = import.meta.env.DEV
 	? (await import('@hono/vite-dev-server/conninfo')).getConnInfo
 	: (await import('hono/bun')).getConnInfo
 
 const app = new Hono<{ Bindings: { vite: ViteDevServer } }>()
+
+app.use(logger())
 
 if (!import.meta.env.DEV) {
 	const serveStatic = (await import('hono/bun')).serveStatic

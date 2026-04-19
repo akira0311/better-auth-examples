@@ -5,11 +5,13 @@ import bunAdapter from '@hono/vite-dev-server/bun'
 import tailwindcss from '@tailwindcss/vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode }) => {
 	if (mode === 'client') {
 		return {
 			plugins: [
+				tsconfigPaths(),
 				tanstackRouter({
 					target: 'react',
 					routesDirectory: './app/client/routes',
@@ -37,6 +39,7 @@ export default defineConfig(({ mode }) => {
 				external: ['react', 'react-dom'],
 			},
 			plugins: [
+				tsconfigPaths(),
 				tailwindcss(),
 				devServer({
 					entry: './app/server/index.tsx',
