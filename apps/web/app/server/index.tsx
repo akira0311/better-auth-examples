@@ -33,6 +33,11 @@ app.get(
 					<meta charSet='utf-8' />
 					<title>SPA</title>
 					{import.meta.env.DEV ? (
+						<link rel='stylesheet' href='/app/client/styles/globals.css' />
+					) : (
+						<link rel='stylesheet' href='/static/assets/index.css' />
+					)}
+					{import.meta.env.DEV ? (
 						<script type='module' src='/app/client/index.tsx'></script>
 					) : (
 						<script type='module' src='/static/client.js'></script>

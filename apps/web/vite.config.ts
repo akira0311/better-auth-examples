@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 
 import devServer from '@hono/vite-dev-server'
 import bunAdapter from '@hono/vite-dev-server/bun'
+import tailwindcss from '@tailwindcss/vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
 
@@ -15,6 +16,7 @@ export default defineConfig(({ mode }) => {
 					generatedRouteTree: './app/client/routeTree.gen.ts',
 				}),
 				react(),
+				tailwindcss(),
 			],
 			build: {
 				rollupOptions: {
@@ -35,6 +37,7 @@ export default defineConfig(({ mode }) => {
 				external: ['react', 'react-dom'],
 			},
 			plugins: [
+				tailwindcss(),
 				devServer({
 					entry: './app/server/index.tsx',
 					adapter: bunAdapter(),
