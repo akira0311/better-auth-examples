@@ -6,6 +6,7 @@ Turborepo + Bun monorepo for better-auth examples.
 
 - **Runtime**: [Bun](https://bun.sh)
 - **Monorepo**: [Turborepo](https://turbo.build)
+- **Auth**: [BetterAuth](https://better-auth.com)
 - **Linter/Formatter**: [Biome](https://biomejs.dev)
 - **Type Check**: [TypeScript Native Preview (tsgo)](https://www.npmjs.com/package/@typescript/native-preview)
 - **Git Hooks**: [Lefthook](https://lefthook.dev)
@@ -54,6 +55,13 @@ bun run check-types
 
 #### Web (`apps/web/`)
 Vite + Hono web application (BFF).
+
+**Authentication**: BetterAuth integration with email/password and social providers (Google).
+
+```sh
+# Run web app
+bun run dev --filter=web
+```
 
 #### Electron (`apps/electron/`)
 Desktop application named "holo" built with:

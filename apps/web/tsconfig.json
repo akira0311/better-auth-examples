@@ -18,7 +18,9 @@
 		"paths": {
 			"@/*": ["./*"],
 			"@server/*": ["./app/server/*"],
-			"@client/*": ["./app/client/*"]
+			"@client/*": ["./app/client/*"],
+			"@client/lib/*": ["./lib/*"],
+			"@client/lib/utils": ["./app/client/lib/utils.ts"]
 		}
 	}
 }

@@ -61,6 +61,14 @@ app.get('/about', (c) => {
 	return c.render(<title>About</title>)
 })
 
+app.get('/login', (c) => {
+	return c.render(<title>Login</title>)
+})
+
+app.get('/signup', (c) => {
+	return c.render(<title>Sign Up</title>)
+})
+
 app.get('/conninfo', (c) => {
 	const info = getConnInfo(c)
 	return c.text(`Your remote address is ${info.remote.address}`)
